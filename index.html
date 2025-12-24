@@ -22,10 +22,11 @@
         </div>
     </div>
 
-    <!-- Background Music (will need to add actual audio file) -->
-    <audio id="bgMusic" loop>
-        <source src="christmas-music.mp3" type="audio/mpeg">
-    </audio>
+    <!-- Background Music - YouTube Embed -->
+    <iframe id="bgMusic" width="0" height="0"
+        src="https://www.youtube.com/embed/k_08ISRPJwY?autoplay=1&loop=1&playlist=k_08ISRPJwY&controls=0"
+        allow="autoplay; encrypted-media" style="display:none;">
+    </iframe>
 
     <div class="container">
         <canvas id="hologramCanvas"></canvas>
@@ -189,9 +190,6 @@
 
         <!-- Controls -->
         <div class="controls">
-            <button class="control-btn music-toggle" title="Bật/Tắt nhạc">
-                <span class="music-icon">🎵</span>
-            </button>
             <button class="control-btn download-btn" title="Tải xuống">
                 <span class="download-icon">💾</span>
             </button>

@@ -1,16 +1,16 @@
 // Configuration
 const isMobile = window.innerWidth < 768;
 const CONFIG = {
-    particleCount: isMobile ? 80 : 1500,
-    treeHeight: 6,
+    particleCount: isMobile ? 200 : 1500,
+    treeHeight: isMobile ? 4.5 : 6,
     treeRadius: 2.5,
     rotationSpeed: 0.001,
     interactionMultiplier: 0.003,
-    snowflakeCount: isMobile ? 0 : 50,
+    snowflakeCount: isMobile ? 15 : 50,
     enableShadows: !isMobile,
     enableBlur: !isMobile,
-    enableStarAnimation: !isMobile,
-    fps: isMobile ? 20 : 60
+    enableStarAnimation: true,
+    fps: isMobile ? 30 : 60
 };
 
 // Global variables
@@ -212,34 +212,19 @@ function createHeartParticles(x, y) {
 
 // ===== CONTROLS =====
 function setupControls() {
-    // Music toggle
-    const musicBtn = document.querySelector('.music-toggle');
-    const audio = document.getElementById('bgMusic');
-    let isPlaying = false;
-
-    musicBtn.addEventListener('click', () => {
-        if (isPlaying) {
-            audio.pause();
-            musicBtn.querySelector('.music-icon').textContent = '🔇';
-        } else {
-            audio.play().catch(() => {
-                console.log('Audio playback failed - user interaction required');
-            });
-            musicBtn.querySelector('.music-icon').textContent = '🎵';
-        }
-        isPlaying = !isPlaying;
-    });
-
     // Download button
-    document.querySelector('.download-btn').addEventListener('click', () => {
-        // Take screenshot of canvas
-        const link = document.createElement('a');
-        link.download = 'christmas-tree-mimimeomeo.png';
-        link.href = canvas.toDataURL();
-        link.click();
+    const downloadBtn = document.querySelector('.download-btn');
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', () => {
+            // Take screenshot of canvas
+            const link = document.createElement('a');
+            link.download = 'christmas-tree-mimimeomeo.png';
+            link.href = canvas.toDataURL();
+            link.click();
 
-        createHeartParticles(window.innerWidth - 100, 70);
-    });
+            createHeartParticles(window.innerWidth - 100, 70);
+        });
+    }
 
     // Star easter egg (click on canvas center top)
     canvas.addEventListener('click', (e) => {
@@ -338,25 +323,72 @@ function setupInteraction() {
 function drawStar(rotation) {
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
-    const y = -CONFIG.treeHeight * 60 * 0.55;
+
+    // Điều chỉnh vị trí cho mobile
+    const yOffset = isMobile ? 0.45 : 0.6;
+    const y = -CONFIG.treeHeight * 60 * yOffset;
 
     const screenX = centerX;
     const screenY = centerY + y;
 
-    const glowSize = 15 + Math.sin(Date.now() * 0.003) * 3;
+    // Kích thước ngôi sao
+    const baseSize = isMobile ? 15 : 25;
+    const starSize = CONFIG.enableStarAnimation
+        ? baseSize + Math.sin(Date.now() * 0.003) * (isMobile ? 3 : 5)
+        : baseSize;
 
+    // Vẽ hào quang vàng phía sau
     ctx.save();
-
-    if (CONFIG.enableShadows) {
-        ctx.shadowBlur = 30;
-        ctx.shadowColor = '#ff69b4';
-    }
-
-    ctx.fillStyle = '#ff1493';
-    ctx.beginPath();
-    ctx.arc(screenX, screenY, glowSize, 0, Math.PI * 2);
+    ctx.globalAlpha = 0.4;
+    ctx.shadowBlur = isMobile ? 40 : 60;
+    ctx.shadowColor = '#FFD700';
+    ctx.fillStyle = '#FFD700';
+    drawStarShape(screenX, screenY, 5, starSize * 1.5, starSize * 0.6);
     ctx.fill();
     ctx.restore();
+
+    // Vẽ ngôi sao vàng chính
+    ctx.save();
+    ctx.shadowBlur = isMobile ? 30 : 50;
+    ctx.shadowColor = '#FFA500';
+    ctx.fillStyle = '#FFD700';
+    drawStarShape(screenX, screenY, 5, starSize, starSize * 0.4);
+    ctx.fill();
+    ctx.restore();
+
+    // Viền sáng
+    ctx.save();
+    ctx.globalAlpha = 0.9;
+    ctx.fillStyle = '#FFFACD'; // Vàng nhạt
+    drawStarShape(screenX, screenY, 5, starSize * 0.6, starSize * 0.24);
+    ctx.fill();
+    ctx.restore();
+}
+
+// Helper function to draw star shape
+function drawStarShape(cx, cy, spikes, outerRadius, innerRadius) {
+    let rot = Math.PI / 2 * 3;
+    let x = cx;
+    let y = cy;
+    const step = Math.PI / spikes;
+
+    ctx.beginPath();
+    ctx.moveTo(cx, cy - outerRadius);
+
+    for (let i = 0; i < spikes; i++) {
+        x = cx + Math.cos(rot) * outerRadius;
+        y = cy + Math.sin(rot) * outerRadius;
+        ctx.lineTo(x, y);
+        rot += step;
+
+        x = cx + Math.cos(rot) * innerRadius;
+        y = cy + Math.sin(rot) * innerRadius;
+        ctx.lineTo(x, y);
+        rot += step;
+    }
+
+    ctx.lineTo(cx, cy - outerRadius);
+    ctx.closePath();
 }
 
 // ===== PHOTO REVEAL =====
