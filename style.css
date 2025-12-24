@@ -1,0 +1,131 @@
+/* =========================================
+   HOLOGRAPHIC MIST THEME
+   ========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000;
+    /* Gradient nền sâu thẳm, tạo không gian vũ trụ */
+    background: radial-gradient(circle at center, #0f1520 0%, #000000 85%);
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Cinzel', serif;
+    user-select: none;
+    touch-action: none;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.text-container {
+    position: absolute;
+    bottom: 12%;
+    text-align: center;
+    width: 100%;
+    padding: 0 20px;
+    pointer-events: none;
+}
+
+.golden-text {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(3rem, 7vw, 5rem);
+    background: linear-gradient(to bottom, #fff, #ffd700, #b8860b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.subtitle {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(0.9rem, 3vw, 1.2rem);
+    color: #87ceeb;
+    /* Màu băng giá xanh nhạt */
+    letter-spacing: 4px;
+    margin-top: 5px;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 1s ease-out 0.5s;
+    text-shadow: 0 0 10px rgba(135, 206, 235, 0.5);
+}
+
+.text-container.visible .golden-text {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.text-container.visible .subtitle {
+    opacity: 0.8;
+    transform: translateY(0);
+}
+
+/* Hint UI */
+.hint-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: rgba(255, 255, 255, 0.2);
+    pointer-events: none;
+    animation: fadeOutHint 1s forwards;
+    animation-delay: 4s;
+    /* Tự ẩn sau 4s */
+    opacity: 1;
+}
+
+.hand-icon {
+    font-size: 2rem;
+    animation: handMove 2s infinite ease-in-out;
+}
+
+.hint-circle span {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+@keyframes handMove {
+
+    0%,
+    100% {
+        transform: translateX(-10px);
+    }
+
+    50% {
+        transform: translateX(10px);
+    }
+}
+
+@keyframes fadeOutHint {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
