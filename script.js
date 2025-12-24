@@ -1,14 +1,15 @@
 // Configuration
 const isMobile = window.innerWidth < 768;
 const CONFIG = {
-    particleCount: isMobile ? 300 : 1500,
+    particleCount: isMobile ? 150 : 1500,
     treeHeight: 6,
     treeRadius: 2.5,
     rotationSpeed: 0.001,
     interactionMultiplier: 0.003,
-    snowflakeCount: isMobile ? 15 : 50,
+    snowflakeCount: isMobile ? 8 : 50,
     enableShadows: !isMobile,
-    fps: isMobile ? 30 : 60
+    enableBlur: !isMobile,
+    fps: isMobile ? 24 : 60
 };
 
 // Global variables
@@ -304,22 +305,20 @@ function setupInteraction() {
     // Touch events on container
     container.addEventListener('touchstart', (e) => {
         if (!e.target.closest('.photo-frame') && !e.target.closest('.control-btn')) {
-            e.preventDefault();
             startInteraction(e.touches[0].clientX);
         }
-    });
+    }, { passive: true });
 
     container.addEventListener('touchmove', (e) => {
         if (isDragging) {
             e.preventDefault();
             moveInteraction(e.touches[0].clientX);
         }
-    });
+    }, { passive: false });
 
     container.addEventListener('touchend', (e) => {
-        e.preventDefault();
         endInteraction();
-    });
+    }, { passive: true });
 }
 
 // ===== DRAW STAR =====
