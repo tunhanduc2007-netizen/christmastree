@@ -1,11 +1,14 @@
 // Configuration
+const isMobile = window.innerWidth < 768;
 const CONFIG = {
-    particleCount: window.innerWidth < 768 ? 800 : 1500,
+    particleCount: isMobile ? 300 : 1500,
     treeHeight: 6,
     treeRadius: 2.5,
     rotationSpeed: 0.001,
     interactionMultiplier: 0.003,
-    snowflakeCount: 50
+    snowflakeCount: isMobile ? 15 : 50,
+    enableShadows: !isMobile,
+    fps: isMobile ? 30 : 60
 };
 
 // Global variables
@@ -84,8 +87,13 @@ class Particle {
         ctx.save();
         ctx.globalAlpha = alpha;
         ctx.fillStyle = this.color;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = this.color;
+
+        // Only add shadow on desktop
+        if (CONFIG.enableShadows) {
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = this.color;
+        }
+
         ctx.beginPath();
         ctx.arc(screenX, screenY, size, 0, Math.PI * 2);
         ctx.fill();
@@ -326,8 +334,12 @@ function drawStar(rotation) {
     const glowSize = 15 + Math.sin(Date.now() * 0.003) * 3;
 
     ctx.save();
-    ctx.shadowBlur = 30;
-    ctx.shadowColor = '#ff69b4';
+
+    if (CONFIG.enableShadows) {
+        ctx.shadowBlur = 30;
+        ctx.shadowColor = '#ff69b4';
+    }
+
     ctx.fillStyle = '#ff1493';
     ctx.beginPath();
     ctx.arc(screenX, screenY, glowSize, 0, Math.PI * 2);
@@ -358,7 +370,18 @@ function revealNextPhoto() {
 }
 
 // ===== ANIMATION LOOP =====
-function animate() {
+let lastFrameTime = 0;
+const frameDelay = 1000 / CONFIG.fps;
+
+function animate(currentTime = 0) {
+    requestAnimationFrame(animate);
+
+    // Throttle FPS on mobile
+    if (currentTime - lastFrameTime < frameDelay) {
+        return;
+    }
+    lastFrameTime = currentTime;
+
     ctx.fillStyle = 'rgba(29, 9, 51, 0.1)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -381,8 +404,6 @@ function animate() {
             lastRevealTime = now;
         }
     }
-
-    requestAnimationFrame(animate);
 }
 
 // ===== KEYBOARD SHORTCUTS =====
