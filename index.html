@@ -3,34 +3,217 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Magical Hologram Tree 🎄✨</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Great+Vibes&family=Outfit:wght@300&display=swap"
-        rel="stylesheet">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cây thông của vợ yêu mimimeomeo 🎄✨</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loading-content">
+            <h2>Đang chuẩn bị bất ngờ của vợ nòo...</h2>
+            <div class="heart-loader">
+                <div class="heart"></div>
+            </div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
 
-    <canvas id="mainCanvas"></canvas>
+    <!-- Background Music (will need to add actual audio file) -->
+    <audio id="bgMusic" loop>
+        <source src="christmas-music.mp3" type="audio/mpeg">
+    </audio>
 
-    <div class="ui-layer">
+    <div class="container">
+        <canvas id="hologramCanvas"></canvas>
 
-        <div class="text-container">
-            <h1 class="golden-text">Merry Christmas</h1>
-            <p class="subtitle">Xoay để đánh thức phép màu ✨</p>
+        <div class="title-overlay">
+            <h1 class="main-title">Cây thông của vợ yêu mimimeomeo</h1>
+            <p class="subtitle">kĩ niệm đáng nhớ của chồng và vợ nòoo ✨</p>
+        </div>
+
+        <!-- Christmas Message -->
+        <div class="christmas-message">
+            <p>Chúc vợ yêuu của chồng giáng sinh vui vẻ ạaaa, mặc dù hăm có chồng kế bên huhuu, chồng nhớ vợ yêu qaa
+                àaa. Cuối cùng là chúc vợ yêu càng ngày càng xinh đẹp, học giỏi và chồng mong là năm nàooo vợ chồng mình
+                cũng đón giáng sinh 🎄💖</p>
+        </div>
+
+        <!-- Floating Photo Frames -->
+        <div class="photo-frames">
+            <div class="photo-frame" data-position="1">
+                <div class="frame-border">
+                    <img src="photo1.jpg" alt="Memory 1">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="2">
+                <div class="frame-border">
+                    <img src="photo2.jpg" alt="Memory 2">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="3">
+                <div class="frame-border">
+                    <img src="photo3.png" alt="Memory 3">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="4">
+                <div class="frame-border">
+                    <img src="photo4.png" alt="Memory 4">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="5">
+                <div class="frame-border">
+                    <img src="photo5.png" alt="Memory 5">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="6">
+                <div class="frame-border">
+                    <img src="photo6.jpg" alt="Memory 6">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="7">
+                <div class="frame-border">
+                    <img src="photo7.jpg" alt="Memory 7">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="8">
+                <div class="frame-border">
+                    <img src="photo8.png" alt="Memory 8">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="9">
+                <div class="frame-border">
+                    <img src="photo9.png" alt="Memory 9">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="10">
+                <div class="frame-border">
+                    <img src="photo10.png" alt="Memory 10">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="11">
+                <div class="frame-border">
+                    <img src="photo11.png" alt="Memory 11">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="12">
+                <div class="frame-border">
+                    <img src="photo12.png" alt="Memory 12">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="13">
+                <div class="frame-border">
+                    <img src="photo13.png" alt="Memory 13">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="14">
+                <div class="frame-border">
+                    <img src="photo14.png" alt="Memory 14">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="15">
+                <div class="frame-border">
+                    <img src="photo15.png" alt="Memory 15">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="16">
+                <div class="frame-border">
+                    <img src="photo16.jpg" alt="Memory 16">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="17">
+                <div class="frame-border">
+                    <img src="photo17.png" alt="Memory 17">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="18">
+                <div class="frame-border">
+                    <img src="photo18.png" alt="Memory 18">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="19">
+                <div class="frame-border">
+                    <img src="photo19.png" alt="Memory 19">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="20">
+                <div class="frame-border">
+                    <img src="photo20.png" alt="Memory 20">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="21">
+                <div class="frame-border">
+                    <img src="photo21.jpg" alt="Memory 21">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="22">
+                <div class="frame-border">
+                    <img src="photo22.png" alt="Memory 22">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="23">
+                <div class="frame-border">
+                    <img src="photo23.png" alt="Memory 23">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="24">
+                <div class="frame-border">
+                    <img src="photo24.png" alt="Memory 24">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="25">
+                <div class="frame-border">
+                    <img src="photo25.png" alt="Memory 25">
+                </div>
+            </div>
+            <div class="photo-frame" data-position="26">
+                <div class="frame-border">
+                    <img src="photo26.png" alt="Memory 26">
+                </div>
+            </div>
         </div>
 
         <div class="hint-circle">
             <div class="hand-icon">👆</div>
-            <span>Spin Me</span>
+            <span>quay anh iiiiii</span>
         </div>
 
+        <!-- Countdown Display -->
+        <div class="countdown-display">
+            <p>💕 Vợ chồng mình yêu nhau được <span class="days-count">606</span> ngày òiii</p>
+            <p>🎄 Còn <span class="days-to-christmas">365</span> ngày nữa là đến noel năm sau òiii</p>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="control-btn music-toggle" title="Bật/Tắt nhạc">
+                <span class="music-icon">🎵</span>
+            </button>
+            <button class="control-btn download-btn" title="Tải xuống">
+                <span class="download-icon">💾</span>
+            </button>
+        </div>
+
+        <!-- Snowfall Container -->
+        <div class="snowfall"></div>
+
+        <!-- Heart Particles Container -->
+        <div class="heart-particles"></div>
+    </div>
+
+    <!-- Photo Modal -->
+    <div class="photo-modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <img class="modal-image" src="" alt="Memory">
+            <div class="modal-nav">
+                <button class="modal-prev">‹</button>
+                <button class="modal-next">›</button>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
