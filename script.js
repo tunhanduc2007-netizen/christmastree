@@ -1,15 +1,16 @@
 // Configuration
 const isMobile = window.innerWidth < 768;
 const CONFIG = {
-    particleCount: isMobile ? 150 : 1500,
+    particleCount: isMobile ? 80 : 1500,
     treeHeight: 6,
     treeRadius: 2.5,
     rotationSpeed: 0.001,
     interactionMultiplier: 0.003,
-    snowflakeCount: isMobile ? 8 : 50,
+    snowflakeCount: isMobile ? 0 : 50,
     enableShadows: !isMobile,
     enableBlur: !isMobile,
-    fps: isMobile ? 24 : 60
+    enableStarAnimation: !isMobile,
+    fps: isMobile ? 20 : 60
 };
 
 // Global variables
@@ -35,11 +36,23 @@ window.addEventListener('load', () => {
 
 // ===== CANVAS SETUP =====
 function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    if (isMobile) {
+        // Render at 50% resolution on mobile for better performance
+        canvas.width = window.innerWidth * 0.5;
+        canvas.height = window.innerHeight * 0.5;
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+    } else {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
 }
 
-window.addEventListener('resize', resizeCanvas);
+let resizeTimeout;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(resizeCanvas, 100);
+});
 resizeCanvas();
 
 // ===== PARTICLE CLASS =====
